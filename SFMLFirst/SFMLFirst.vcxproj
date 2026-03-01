@@ -136,10 +136,12 @@ sfml-system-d.lib;%(AdditionalDependencies)</AdditionalDependencies>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">false</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="physics.cpp" />
     <ClCompile Include="systems.cpp" />
     <ClCompile Include="utils.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="physics.h" />
     <ClInclude Include="systems.h" />
     <ClInclude Include="utils.h" />
   </ItemGroup>

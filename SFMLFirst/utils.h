@@ -52,4 +52,58 @@ struct Camera {
     unsigned int height;
     double zoom;
     Vector2 pos;
+
+    void lock(Body b) {
+        pos = b.pos;
+    };
+
+    template <std::size_t N>
+    void fit_bodies(const std::array<Body, N>& bodies, double margin = 1.1) {
+        double minx = bodies[0].pos.x;
+        double maxx = bodies[0].pos.x;
+        double miny = bodies[0].pos.y;
+        double maxy = bodies[0].pos.y;
+
+        for (const auto& b : bodies) {
+            minx = std::min(minx, b.pos.x);
+            maxx = std::max(maxx, b.pos.x);
+            miny = std::min(miny, b.pos.y);
+            maxy = std::max(maxy, b.pos.y);
+        }
+
+        pos.x = 0.5 * (minx + maxx);
+        pos.y = 0.5 * (miny + maxy);
+
+        double world_w = (maxx - minx) * margin;
+        double world_h = (maxy - miny) * margin;
+
+        double zoom_x = width  / world_w;
+        double zoom_y = height / world_h;
+
+        zoom = std::min(zoom_x, zoom_y);
+    }
+
+    template <std::size_t N>
+    void fit_bodies_origin(const std::array<Body, N>& bodies, double margin = 1.1) {
+        double max_radius = 0.0;
+
+        for (const auto& b : bodies) {
+            double r = std::hypot(b.pos.x, b.pos.y);
+            max_radius = std::max(max_radius, r);
+        }
+
+        double world_diameter = 2.0 * max_radius * margin;
+
+        double zoom_x = width / world_diameter;
+        double zoom_y = height / world_diameter;
+
+        zoom = std::min(zoom_x, zoom_y);
+    }
+
+    Vector2 world_to_screen(const Vector2& world) const {
+        return {
+            (world.x - pos.x) * zoom + width * 0.5,
+            (world.y - pos.y) * zoom + height * 0.5
+        };
+    }
 };
