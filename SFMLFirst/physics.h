@@ -1,3 +1,4 @@
+// physics.h
 #pragma once
 
 #include <cmath>
@@ -30,6 +31,11 @@ void naive_physics_step(std::array<Body, AMT_BODIES>& bodies, double dt, double 
         bodies[i].acc = new_acc;
     }
 }
+
+
+template <int AMT_BODIES>
+void barnes_hut_physics_step(std::array<Body, AMT_BODIES>& bodies, double dt, double eps) {}
+
 
 template <int AMT_BODIES>
 void init_acc(std::array<Body, AMT_BODIES>& bodies, double eps) {

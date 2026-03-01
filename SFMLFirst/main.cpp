@@ -21,8 +21,52 @@ Camera cam(
     Vector2({ 0, 0 })
 );
 
+sf::RenderWindow window(sf::VideoMode({ cam.width, cam.height }), "SFML Physics Sim");
+
+
+void SFML_poll_event() {
+    while (const std::optional event = window.pollEvent()) {
+        if (event->is<sf::Event::Closed>())
+            window.close();
+
+        if (const auto* keyPressed = event->getIf<sf::Event::KeyPressed>()) {
+            switch (keyPressed->code) {
+            case sf::Keyboard::Key::Q:
+                cam.zoom *= 10.0;
+                break;
+
+            case sf::Keyboard::Key::W:
+                cam.zoom /= 10.0;
+                break;
+
+            case sf::Keyboard::Key::A:
+                cam.zoom *= 2.0;
+                break;
+
+            case sf::Keyboard::Key::S:
+                cam.zoom /= 2.0;
+                break;
+
+            case sf::Keyboard::Key::Z:
+                cam.zoom *= 1.1;
+                break;
+
+            case sf::Keyboard::Key::X:
+                cam.zoom /= 1.1;
+                break;
+
+            case sf::Keyboard::Key::R:
+                cam.fit_bodies_origin(bodies, 1.3);
+                break;
+
+            default:
+                break;
+            }
+        }
+    }
+}
+
 int main() {
-    sf::RenderWindow window(sf::VideoMode({ cam.width, cam.height }), "SFML Physics Sim");
     sf::Clock clock;
     StorageWindow<float, 5> fps{};
 
@@ -35,16 +79,11 @@ int main() {
             naive_physics_step(bodies, dt, eps);
             time_passed += dt;
         }
-
-        while (auto event = window.pollEvent()) {
-            if (event->is<sf::Event::Closed>()) 
-                window.close();
-        }
-
+        
         window.clear();
         for (const auto& body : bodies) {
             Vector2 circle_pos = cam.world_to_screen(body.pos);
-            sf::CircleShape circle = make_circle(circle_pos.x, circle_pos.y, body.radius, body.color);
+            sf::CircleShape circle = make_circle((float)circle_pos.x, (float)circle_pos.y, body.radius, body.color);
             window.draw(circle);
             //std::cout << bodies[1].pos.x << ", " << bodies[1].pos.y << std::endl;
         }
