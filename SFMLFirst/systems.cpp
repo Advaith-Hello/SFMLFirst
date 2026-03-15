@@ -1,9 +1,13 @@
 // systems.cpp
+#pragma once
+
 #include <SFML/Graphics.hpp>
-#include "utils.h"
+#include <vector>
+#include "coretypes.h"
+#include "constants.h"
 
 
-std::array<Body, 2> earth_moon_system = { {
+std::vector<Body> earth_moon_system = { {
     // THE EARTH
     {
         sf::Color::Blue, 5.0, 5.9722e24,
@@ -19,8 +23,7 @@ std::array<Body, 2> earth_moon_system = { {
         {0.0, 0.0},
     },
 } };
-
-std::array<Body, 3> sun_moon_earth_system = { {
+std::vector<Body> sun_moon_earth_system = { {
     // THE SUN
     {
         sf::Color::Yellow, 15.0, SM,
@@ -43,8 +46,7 @@ std::array<Body, 3> sun_moon_earth_system = { {
         {0.0, 0.0},
     },
 } };
-
-std::array<Body, 10> planets_solar_system = { {
+std::vector<Body> planets_solar_system = { {
     // THE SUN
     { sf::Color::Yellow, 6.0, 1.98847e30, {0.0, 0.0}, {0.0, 0.0}, {0.0, 0.0} },
 
@@ -75,8 +77,7 @@ std::array<Body, 10> planets_solar_system = { {
     // NEPTUNE
     { sf::Color(0, 0, 139), 3.5, 1.0241e26, {30.07 * AU, 0.0}, {0.0, 5430.0}, {0.0, 0.0} }
 } };
-
-std::array<Body, 5> jupiter_system = { {
+std::vector<Body> jupiter_system = { {
     // JUPITER
     {
         sf::Color(255, 165, 0), 10.0, 1.8982e27,
@@ -116,4 +117,16 @@ std::array<Body, 5> jupiter_system = { {
         {0.0, 8200.0},
         {0.0, 0.0}
     }
+} };
+std::vector<Body> custom_system_1 = { {
+    // STARS
+    { sf::Color::Cyan, 8.0, 4.5e30, {300 * AU, 0}, {0.0, 4000.0}, {0.0, 0.0} },
+    { sf::Color::Cyan, 8.0, 4.4e30, {-300 * AU, 0}, {0.0, -4000.0}, {0.0, 0.0} },
+    { sf::Color::Cyan, 8.0, 4.8e30, {0, 300 * AU}, {-4000.0, 0.0}, {0.0, 0.0} },
+    { sf::Color::Cyan, 8.0, 8.3e30, {0, -300 * AU}, {4110.0, 0.0}, {0.0, 0.0} },
+    // DWARF STARS
+    { sf::Color::Red, 3.0, 1.48e30, {75 * AU, 0}, {0.0, -2000.0}, {0.0, 0.0} },
+    { sf::Color::Red, 3.0, 1.35e30, {-75 * AU, 0}, {0.0, 2025.0}, {0.0, 0.0} },
+    { sf::Color::Red, 3.0, 1.50e30, {0, 75 * AU}, {2200.0, 0.0}, {0.0, 0.0} },
+    { sf::Color::Red, 3.0, 1.39e30, {0, -75 * AU}, {-2000.0, 0.0}, {0.0, 0.0} },
 } };

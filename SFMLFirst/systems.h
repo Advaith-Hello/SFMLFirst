@@ -1,7 +1,14 @@
 // systems.h
 #pragma once
 
-extern std::array<Body, 3>  sun_moon_earth_system;
-extern std::array<Body, 10> planets_solar_system;
-extern std::array<Body, 5>  jupiter_system;
-extern std::array<Body, 2>  earth_moon_system;
+#include <SFML/Graphics.hpp>
+#include <vector>
+#include "coretypes.h"
+#include "constants.h"
+
+
+extern std::vector<Body> earth_moon_system;
+extern std::vector<Body> sun_moon_earth_system;
+extern std::vector<Body> planets_solar_system;
+extern std::vector<Body> jupiter_system;
+extern std::vector<Body> custom_system_1;
